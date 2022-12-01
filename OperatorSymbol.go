@@ -46,6 +46,7 @@ const (
 	FUNCTIONAL
 	ACCESS
 	SEPARATE
+	IXN
 )
 
 type operatorPrecedence int
@@ -136,6 +137,8 @@ func findOperatorPrecedenceForSymbol(symbol OperatorSymbol) operatorPrecedence {
 		return functionalPrecedence
 	case SEPARATE:
 		return separatePrecedence
+	case IXN:
+		return comparatorPrecedence
 	}
 
 	return valuePrecedence
@@ -147,15 +150,16 @@ func findOperatorPrecedenceForSymbol(symbol OperatorSymbol) operatorPrecedence {
 	Also used during evaluation to determine exactly which comparator is being used.
 */
 var comparatorSymbols = map[string]OperatorSymbol{
-	"==": EQ,
-	"!=": NEQ,
-	">":  GT,
-	">=": GTE,
-	"<":  LT,
-	"<=": LTE,
-	"=~": REQ,
-	"!~": NREQ,
-	"in": IN,
+	"==":  EQ,
+	"!=":  NEQ,
+	">":   GT,
+	">=":  GTE,
+	"<":   LT,
+	"<=":  LTE,
+	"=~":  REQ,
+	"!~":  NREQ,
+	"in":  IN,
+	"ixn": IXN,
 }
 
 var logicalSymbols = map[string]OperatorSymbol{
@@ -304,6 +308,8 @@ func (this OperatorSymbol) String() string {
 		return ":"
 	case COALESCE:
 		return "??"
+	case IXN:
+		return "ixn"
 	}
 	return ""
 }

@@ -514,3 +514,22 @@ func boolIface(b bool) interface{} {
 	}
 	return _false
 }
+
+func ixnStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error) {
+	if ls, ok := left.([]interface{}); ok { //both array
+		for _, v := range ls {
+			for _, value := range right.([]interface{}) {
+				if v == value {
+					return true, nil
+				}
+			}
+		}
+		return false, nil
+	}
+	for _, value := range right.([]interface{}) {
+		if left == value {
+			return true, nil
+		}
+	}
+	return false, nil
+}

@@ -710,7 +710,7 @@ func TestNoParameterEvaluation(test *testing.T) {
 			Expected: true,
 		},
 		EvaluationTest{
-			
+
 			Name:  "Ternary/Java EL ambiguity",
 			Input: "false ? foo:length()",
 			Functions: map[string]ExpressionFunction{
@@ -1418,6 +1418,30 @@ func TestParameterizedEvaluation(test *testing.T) {
 			Input:      "foo.Nil ?? false",
 			Parameters: []EvaluationParameter{fooParameter},
 			Expected:   false,
+		},
+		EvaluationTest{
+
+			Name:  "ixn parameter1",
+			Input: "a ixn (1,2,3)",
+			Parameters: []EvaluationParameter{
+				{Name: "a", Value: []interface{}{float64(1)}}},
+			Expected: true,
+		},
+		EvaluationTest{
+
+			Name:  "ixn parameter2",
+			Input: "a ixn (1,2,3)",
+			Parameters: []EvaluationParameter{
+				{Name: "a", Value: 2}},
+			Expected: true,
+		},
+		EvaluationTest{
+
+			Name:  "ixn parameter3",
+			Input: "a ixn (1,2,3)",
+			Parameters: []EvaluationParameter{
+				{Name: "a", Value: []interface{}{float64(4), float64(5)}}},
+			Expected: false,
 		},
 	}
 

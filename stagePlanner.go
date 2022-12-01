@@ -7,17 +7,18 @@ import (
 )
 
 var stageSymbolMap = map[OperatorSymbol]evaluationOperator{
-	EQ:             equalStage,
-	NEQ:            notEqualStage,
-	GT:             gtStage,
-	LT:             ltStage,
-	GTE:            gteStage,
-	LTE:            lteStage,
-	REQ:            regexStage,
-	NREQ:           notRegexStage,
-	AND:            andStage,
-	OR:             orStage,
-	IN:             inStage,
+	EQ:   equalStage,
+	NEQ:  notEqualStage,
+	GT:   gtStage,
+	LT:   ltStage,
+	GTE:  gteStage,
+	LTE:  lteStage,
+	REQ:  regexStage,
+	NREQ: notRegexStage,
+	AND:  andStage,
+	OR:   orStage,
+	IN:   inStage,
+
 	BITWISE_OR:     bitwiseOrStage,
 	BITWISE_AND:    bitwiseAndStage,
 	BITWISE_XOR:    bitwiseXORStage,
@@ -36,6 +37,7 @@ var stageSymbolMap = map[OperatorSymbol]evaluationOperator{
 	TERNARY_FALSE:  ternaryElseStage,
 	COALESCE:       ternaryElseStage,
 	SEPARATE:       separatorStage,
+	IXN:            ixnStage,
 }
 
 /*
@@ -544,6 +546,10 @@ func findTypeChecks(symbol OperatorSymbol) typeChecks {
 		fallthrough
 	case COALESCE:
 		fallthrough
+	case IXN:
+		return typeChecks{
+			right: isArray,
+		}
 	default:
 		return typeChecks{}
 	}
@@ -680,7 +686,7 @@ func elideStage(root *evaluationStage) *evaluationStage {
 	switch root.symbol {
 	case SEPARATE:
 		fallthrough
-	case IN:
+	case IN, IXN:
 		return root
 	}
 
