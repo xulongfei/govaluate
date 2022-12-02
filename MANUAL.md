@@ -139,7 +139,7 @@ Note that you can use a parameter for the array, but it must be an `[]interface{
 
 This operator checks the left-hand side array and the right-hand side array to see if they contains a intersection.
 
-* _Left side_: Any type.
+* _Left side_: Any single value(int/bool/string) like membership in  or []interface{float64/bool/string}.
 * _Right side_: array
 * _Returns_: bool
 
