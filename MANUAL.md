@@ -135,6 +135,12 @@ Note that you can use a parameter for the array, but it must be an `[]interface{
 * _Right side_: array
 * _Returns_: bool
 
+### Intersection `IXN`
+this operator checks left-hand side array and the right-hand side array to see if they have a intersection.
+* _Left side_: Any Single(int/bool/string)value or []interface{float64,bool,string}.
+* _Right side_: array
+* _Returns_: bool
+
 # Parameters
 
 Parameters must be passed in every time the expression is evaluated. Parameters can be of any type, but will not cause errors unless actually used in an erroneous way. There is no difference in behavior for any of the above operators for parameters - they are type checked when used.
